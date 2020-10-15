@@ -1,17 +1,10 @@
 import datetime
-
-from typing import Tuple
+from typing import Any, Tuple
 
 from pymongo.pool import Pool, SocketInfo
 
-class Response(object):
-    def __init__(
-        self,
-        data: bytes,
-        address: Tuple[str, int],
-        request_id: int,
-        duration: datetime.timedelta,
-        from_command: bool) -> None: ...
+class Response:
+    def __init__(self, data: Any, address: Any, request_id: Any, duration: Any, from_command: Any, docs: Any) -> None: ...
     @property
     def data(self) -> bytes: ...
     @property
@@ -22,17 +15,13 @@ class Response(object):
     def duration(self) -> datetime.timedelta: ...
     @property
     def from_command(self) -> bool: ...
+    @property
+    def docs(self): ...
 
 class ExhaustResponse(Response):
     def __init__(
-        self,
-        data: bytes,
-        address: Tuple[str, int],
-        socket_info: SocketInfo,
-        pool: Pool,
-        request_id: int,
-        duration: datetime.timedelta,
-        from_command: bool) -> None: ...
+        self, data: Any, address: Any, socket_info: Any, pool: Any, request_id: Any, duration: Any, from_command: Any, docs: Any
+    ) -> None: ...
     @property
     def socket_info(self) -> SocketInfo: ...
     @property

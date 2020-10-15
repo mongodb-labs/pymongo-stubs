@@ -1,32 +1,31 @@
-from socket import socket
-from typing import Any, Dict, Mapping, Optional, Sequence, Tuple, Union
+from typing import Any, Optional
 
-from bson import CodecOptions
-from pymongo.collation import Collation
-from pymongo.monitoring import _EventListeners
-from pymongo.read_concern import ReadConcern
-from pymongo.read_preferences import _ServerMode
-
+from pymongo.errors import NetworkTimeout as NetworkTimeout
 
 def command(
-    sock: socket,
-    dbname: str,
-    spec: Mapping[str, Any],
-    slave_ok: bool,
-    is_mongos: bool,
-    read_preference: _ServerMode,
-    codec_options: CodecOptions,
+    sock_info: Any,
+    dbname: Any,
+    spec: Any,
+    slave_ok: Any,
+    is_mongos: Any,
+    read_preference: Any,
+    codec_options: Any,
+    session: Any,
+    client: Any,
     check: bool = ...,
-    allowable_errors: Optional[Sequence[str]] = ...,
-    address: Optional[Tuple[str, int]] = ...,
+    allowable_errors: Optional[Any] = ...,
+    address: Optional[Any] = ...,
     check_keys: bool = ...,
-    listeners: Optional[_EventListeners] = ...,
-    max_bson_size: Optional[int] = ...,
-    read_concern: ReadConcern = ...,
+    listeners: Optional[Any] = ...,
+    max_bson_size: Optional[Any] = ...,
+    read_concern: Optional[Any] = ...,
     parse_write_concern_error: bool = ...,
-    collation: Optional[Collation] = ...) -> Dict[str, Any]: ...
-def receive_message(sock: socket, operation: int, request_id: int, max_message_size: int = ...) -> bytes: ...
-
-class SocketChecker(object):
-    def __init__(self) -> None: ...
-    def socket_closed(self, sock: socket) -> bool: ...
+    collation: Optional[Any] = ...,
+    compression_ctx: Optional[Any] = ...,
+    use_op_msg: bool = ...,
+    unacknowledged: bool = ...,
+    user_fields: Optional[Any] = ...,
+    exhaust_allowed: bool = ...,
+): ...
+def receive_message(sock_info: Any, request_id: Any, max_message_size: Any = ...): ...
+def wait_for_read(sock_info: Any, deadline: Any) -> None: ...

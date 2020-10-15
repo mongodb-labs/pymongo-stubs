@@ -1,23 +1,26 @@
 import threading
-from typing import Dict, List, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from pymongo.monitor import Monitor
 from pymongo.pool import Pool, PoolOptions
 from pymongo.server_description import ServerDescription
 
-
-class TopologySettings(object):
+class TopologySettings:
     def __init__(
         self,
-        seeds: Optional[Sequence[Tuple[str, int]]] = ...,
-        replica_set_name: Optional[str] = ...,
-        pool_class: Optional[Pool] = ...,
-        pool_options: Optional[PoolOptions] = ...,
-        monitor_class: Optional[Monitor] = ...,
-        condition_class: Optional[threading.Condition] = ...,
-        local_threshold_ms: int = ...,
-        server_selection_timeout: int = ...,
-        heartbeat_frequency: int = ...) -> None: ...
+        seeds: Optional[Any] = ...,
+        replica_set_name: Optional[Any] = ...,
+        pool_class: Optional[Any] = ...,
+        pool_options: Optional[Any] = ...,
+        monitor_class: Optional[Any] = ...,
+        condition_class: Optional[Any] = ...,
+        local_threshold_ms: Any = ...,
+        server_selection_timeout: Any = ...,
+        heartbeat_frequency: Any = ...,
+        server_selector: Optional[Any] = ...,
+        fqdn: Optional[Any] = ...,
+        direct_connection: Optional[Any] = ...,
+    ) -> None: ...
     @property
     def seeds(self) -> List[Tuple[str, int]]: ...
     @property
@@ -35,7 +38,11 @@ class TopologySettings(object):
     @property
     def server_selection_timeout(self) -> int: ...
     @property
+    def server_selector(self): ...
+    @property
     def heartbeat_frequency(self) -> int: ...
+    @property
+    def fqdn(self): ...
     @property
     def direct(self) -> bool: ...
     def get_topology_type(self) -> int: ...
