@@ -1,21 +1,13 @@
-from typing import Any, Dict, FrozenSet, NamedTuple
+from collections import namedtuple
 
 from pymongo.pool import SocketInfo
 
-HAVE_KERBEROS: bool = True
-MECHANISMS: FrozenSet[str] = ...
+HAVE_KERBEROS: bool
+MECHANISMS: frozenset[str]
 
-MongoCredential = NamedTuple('MongoCredential', [
-    ('mechanism', str),
-    ('source', str),
-    ('username', str),
-    ('password', str),
-    ('props', Any),
-])
-GSSAPIProperties = NamedTuple('GSSAPIProperties', [
-    ('service_name', str),
-    ('canonicalize_host_name', bool),
-    ('service_realm', Any),
-])
+MongoCredential = namedtuple("MongoCredential", ["mechanism", "source", "username", "password", "mechanism_properties", "cache"])
+
+GSSAPIProperties = namedtuple("GSSAPIProperties", ["service_name", "canonicalize_host_name", "service_realm"])
+
 def authenticate(credentials: MongoCredential, sock_info: SocketInfo) -> None: ...
 def logout(source: str, sock_info: SocketInfo) -> None: ...
