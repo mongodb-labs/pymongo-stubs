@@ -1,6 +1,6 @@
 from typing import Any, Dict, Iterable, Mapping, Optional
 
-from bson.errors import *
+from bson.errors import BSONError, InvalidBSON, InvalidDocument, InvalidId, InvalidStringData
 
 class CertificateError(ValueError): ...
 

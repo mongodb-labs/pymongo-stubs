@@ -1,0 +1,14 @@
+# Some PEP8 deviations are considered irrelevant to stub files:
+#       E301 expected 1 blank line
+#       E302 expected 2 blank lines
+#       E305 expected 2 blank lines
+#       F401 imported but unused
+#       E701 multiple statements on one line (colon)
+#       F821 undefined name
+
+[flake8]
+per-file-ignores =
+  *.pyi: E301, E302, E305, F401, E701, F821
+
+exclude = .venv*,@*,.git
+max-line-length = 130
