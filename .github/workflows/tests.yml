@@ -1,0 +1,57 @@
+name: Test stub files
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  flake8:
+    name: Lint with flake8
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: |
+          pip install $(grep flake8 requirements-tests-py3.txt)
+          flake8
+
+  black:
+    name: Check formatting with black
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: |
+          pip install $(grep black requirements-tests-py3.txt)
+          black --check --diff */*.pyi setup.py
+
+  isort:
+    name: Check imports with isort
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: |
+          pip install $(grep isort requirements-tests-py3.txt)
+          isort --check-only --diff */*.pyi setup.py
+
+  stubtest:
+    name: Run stubtest
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8, 3.9]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip
+          pip install $(grep mypy requirements-tests-py3.txt)
+          pip install -e .
+      - name: Run stubtest
+        run: stubtest bson pymongo gridfs --ignore-missing-stub --whitelist tests/stubtest_whitelist/common.txt
