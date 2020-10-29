@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, tzinfo
 from typing import Any, Optional, Union
 
-ZERO: Any
+ZERO: timedelta
 
 class FixedOffset(tzinfo):
     def __init__(self, offset: Union[float, timedelta], name: str) -> None: ...
