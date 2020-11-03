@@ -1,0 +1,1 @@
+pymongo.client_session.ClientSession.__copy__
