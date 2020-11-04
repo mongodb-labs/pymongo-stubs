@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Tuple, Union
 
 from pymongo.collection import ReturnDocument as ReturnDocument
 from pymongo.common import (
@@ -30,10 +30,11 @@ TEXT: str
 OFF: int
 SLOW_ONLY: int
 ALL: int
-version_tuple: Any
+version_tuple: Tuple[Union[int, str], ...]
 
 def get_version_string() -> str: ...
 
-version: Any
+version: str
+__version__: str
 
 def has_c() -> bool: ...
