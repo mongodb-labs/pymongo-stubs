@@ -87,9 +87,9 @@ class GridOutCursor(Cursor):
         session: Optional[ClientSession] = ...,
     ) -> None: ...
     # error: Return type "GridOut" of "next" incompatible with return type "Dict[str, Any]" in supertype "Cursor"
-    def next(self) -> GridOut: ...  # type: ignore
+    def next(self) -> GridOut: ...  # type: ignore[override]
     def __next__(self) -> GridOut: ...
     # TODO: error: Signature of "add_option" incompatible with supertype "Cursor"
     # Change pymongo to "mask: int"
-    def add_option(self, *args: Any, **kwargs: Any) -> None: ...  # type: ignore
-    def remove_option(self, *args: Any, **kwargs: Any) -> None: ...  # type: ignore
+    def add_option(self, *args: Any, **kwargs: Any) -> None: ...  # type: ignore[override]
+    def remove_option(self, *args: Any, **kwargs: Any) -> None: ...  # type: ignore[override]
