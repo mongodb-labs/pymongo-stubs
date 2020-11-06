@@ -1,7 +1,9 @@
 import abc
 import datetime
 from collections import namedtuple
-from typing import Any, Callable, Iterable, NamedTuple, Optional, Union
+from typing import Any, Callable, Iterable, MutableMapping, Optional, Type, Union
+
+from bson.raw_bson import RawBSONDocument
 
 class TypeEncoder(abc.ABC, metaclass=abc.ABCMeta):
     @property
@@ -33,9 +35,9 @@ _options_base = namedtuple(
 
 class CodecOptions(_options_base):
     def __new__(
-        cls: Any,
-        document_class: Optional[type] = ...,
-        tz_aware: Optional[bool] = ...,
+        cls,
+        document_class: Union[Type[MutableMapping], Type[RawBSONDocument]] = ...,
+        tz_aware: bool = ...,
         uuid_representation: Optional[int] = ...,
         unicode_decode_error_handler: Optional[str] = ...,
         tzinfo: Optional[datetime.tzinfo] = ...,
@@ -43,4 +45,4 @@ class CodecOptions(_options_base):
     ) -> CodecOptions: ...
     def with_options(self, **kwargs: Any) -> CodecOptions: ...
 
-DEFAULT_CODEC_OPTIONS: Any
+DEFAULT_CODEC_OPTIONS: CodecOptions
