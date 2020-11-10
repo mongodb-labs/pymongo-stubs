@@ -1,5 +1,6 @@
 from typing import Any, List, Mapping, Optional
 
+from bson.objectid import ObjectId
 from gridfs.grid_file import GridIn, GridOut, GridOutCursor
 from pymongo.client_session import ClientSession
 from pymongo.common import UNAUTHORIZED_CODES as UNAUTHORIZED_CODES
@@ -59,7 +60,7 @@ class GridFSBucket:
         chunk_size_bytes: Optional[int] = ...,
         metadata: Optional[Mapping[str, Any]] = ...,
         session: Optional[ClientSession] = ...,
-    ) -> Any: ...
+    ) -> ObjectId: ...
     def upload_from_stream_with_id(
         self,
         file_id: Any,
