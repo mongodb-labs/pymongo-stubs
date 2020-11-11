@@ -10,5 +10,5 @@
 per-file-ignores =
   *.pyi: E301, E302, E305, F401, E701, F821
 
-exclude = .venv*,@*,.git
+exclude = .venv*,@*,.git,test/fail
 max-line-length = 130
