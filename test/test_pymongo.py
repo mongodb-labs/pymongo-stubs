@@ -25,7 +25,8 @@ class TestPymongo(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.client = MongoClient(serverSelectionTimeoutMS=250)
+        cls.client = MongoClient(
+            serverSelectionTimeoutMS=250, directConnection=False)
         try:
             cls.client.admin.command('ping')
         except ServerSelectionTimeoutError as exc:
