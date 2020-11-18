@@ -16,17 +16,22 @@
 
 import unittest
 
+from typing import Iterable, List, Dict, Any
+
 from pymongo.mongo_client import MongoClient
+from pymongo.collection import Collection
 from pymongo.errors import ServerSelectionTimeoutError
 
 
 class TestPymongo(unittest.TestCase):
     client: MongoClient
+    coll: Collection
 
     @classmethod
     def setUpClass(cls) -> None:
         cls.client = MongoClient(
             serverSelectionTimeoutMS=250, directConnection=False)
+        cls.coll = cls.client.test.test
         try:
             cls.client.admin.command('ping')
         except ServerSelectionTimeoutError as exc:
@@ -38,16 +43,23 @@ class TestPymongo(unittest.TestCase):
 
     def test_insert_find(self) -> None:
         doc = {'my': 'doc'}
-        coll = self.client.test.test
         coll2 = self.client.test.test2
-        result = coll.insert_one(doc)
+        result = self.coll.insert_one(doc)
         self.assertEqual(result.inserted_id, doc['_id'])
-        retreived = coll.find_one({'_id': doc['_id']})
+        retreived = self.coll.find_one({'_id': doc['_id']})
         if retreived:
             # Documents returned from find are mutable.
             retreived['new_field'] = 1
             result2 = coll2.insert_one(retreived)
             self.assertEqual(result2.inserted_id, result.inserted_id)
+
+    def test_cursor_iterable(self) -> None:
+        def to_list(iterable: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+            return list(iterable)
+        self.coll.insert_one({})
+        cursor = self.coll.find()
+        docs = to_list(cursor)
+        self.assertTrue(docs)
 
 
 if __name__ == "__main__":
