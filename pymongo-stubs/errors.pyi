@@ -1,6 +1,11 @@
 from typing import Any, Iterable, List, Mapping, Optional, Union
 
-from bson.errors import InvalidDocument as InvalidDocument
+from bson.errors import (
+    InvalidBSON as InvalidBSON,
+    InvalidDocument as InvalidDocument,
+    InvalidId as InvalidId,
+    InvalidStringData as InvalidStringData,
+)
 
 class CertificateError(ValueError): ...
 
