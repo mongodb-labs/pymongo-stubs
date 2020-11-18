@@ -88,7 +88,7 @@ class GridOutCursor(Cursor):
     ) -> None: ...
     # error: Return type "GridOut" of "next" incompatible with return type "Dict[str, Any]" in supertype "Cursor"
     def next(self) -> GridOut: ...  # type: ignore[override]
-    def __next__(self) -> GridOut: ...
+    def __next__(self) -> GridOut: ...  # type: ignore[override]
     # TODO: error: Signature of "add_option" incompatible with supertype "Cursor"
     # Change pymongo to "mask: int"
     def add_option(self, *args: Any, **kwargs: Any) -> None: ...  # type: ignore[override]
