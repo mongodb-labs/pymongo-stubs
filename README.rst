@@ -9,7 +9,7 @@ Experimental stub files for `PyMongo`_ 3.
 Example
 =======
 
-.. image:: https://raw.githubusercontent.com/mongdb-labs/pymongo-stubs/master/images/screencast.gif
+.. image:: https://raw.githubusercontent.com/ShaneHarvey/pymongo-stubs/PYTHON-2428/images/screencast.gif
 
 Installation
 ============
