@@ -9,7 +9,7 @@ Experimental stub files for `PyMongo`_ 3.
 Example
 =======
 
-TODO: show example of type checking pymongo code.
+.. image:: https://raw.githubusercontent.com/mongdb-labs/pymongo-stubs/master/images/screencast.gif
 
 Installation
 ============
