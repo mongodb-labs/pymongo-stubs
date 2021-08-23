@@ -24,7 +24,7 @@ Installing from source
 pymongo-stubs' source code is hosted on Github: `mongodb-labs/pymongo-stubs`_.
 To install pymongo-stubs from source::
 
-  $ git clone git@github.com:mongodb/pymongo-stubs.git
+  $ git clone git@github.com:mongodb-labs/pymongo-stubs.git
   $ python3 -m pip install ./pymongo-stubs
 
 Dependencies

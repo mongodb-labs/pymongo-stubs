@@ -34,7 +34,7 @@ Release Process
 
 #. Build the release packages::
 
-     $ git clone git@github.com:mongodb/pymongo-stubs.git
+     $ git clone git@github.com:mongodb-labs/pymongo-stubs.git
      $ cd pymongo-stubs/
      $ git checkout "pymongo-stubs <release version number>"
      $ python3 setup.py sdist

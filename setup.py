@@ -28,7 +28,7 @@ setup(
     },
     author="Shane Harvey",
     author_email="drivers-python-noreply@mongodb.com",
-    url="https://github.com/mongodb/pymongo-stubs",
+    url="https://github.com/mongodb-labs/pymongo-stubs",
     keywords=["mongo", "mongodb", "pymongo", "bson", "gridfs"],
     license="Apache License, Version 2.0",
     # PEP 561 says to use install_requires to list compatible versions
