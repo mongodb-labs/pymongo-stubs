@@ -29,33 +29,33 @@ class TestPymongo(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.client = MongoClient(
-            serverSelectionTimeoutMS=250, directConnection=False)
+        cls.client = MongoClient(serverSelectionTimeoutMS=250, directConnection=False)
         cls.coll = cls.client.test.test
         try:
-            cls.client.admin.command('ping')
+            cls.client.admin.command("ping")
         except ServerSelectionTimeoutError as exc:
-            raise unittest.SkipTest(f'Could not connect to MongoDB: {exc}')
+            raise unittest.SkipTest(f"Could not connect to MongoDB: {exc}")
 
     @classmethod
     def tearDownClass(cls) -> None:
         cls.client.close()
 
     def test_insert_find(self) -> None:
-        doc = {'my': 'doc'}
+        doc = {"my": "doc"}
         coll2 = self.client.test.test2
         result = self.coll.insert_one(doc)
-        self.assertEqual(result.inserted_id, doc['_id'])
-        retreived = self.coll.find_one({'_id': doc['_id']})
+        self.assertEqual(result.inserted_id, doc["_id"])
+        retreived = self.coll.find_one({"_id": doc["_id"]})
         if retreived:
             # Documents returned from find are mutable.
-            retreived['new_field'] = 1
+            retreived["new_field"] = 1
             result2 = coll2.insert_one(retreived)
             self.assertEqual(result2.inserted_id, result.inserted_id)
 
     def test_cursor_iterable(self) -> None:
         def to_list(iterable: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
             return list(iterable)
+
         self.coll.insert_one({})
         cursor = self.coll.find()
         docs = to_list(cursor)

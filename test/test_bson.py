@@ -22,14 +22,14 @@ from bson.objectid import ObjectId
 
 class TestBSON(unittest.TestCase):
     def test_bson_encode_decode(self) -> None:
-        doc = {'_id': ObjectId()}
+        doc = {"_id": ObjectId()}
         encoded = bson.encode(doc)
         decoded = bson.decode(encoded)
         encoded = bson.encode(decoded)
         decoded = bson.decode(encoded)
         # Documents returned from decode are mutable.
-        decoded['new_field'] = 1
-        self.assertTrue(decoded['_id'].generation_time)
+        decoded["new_field"] = 1
+        self.assertTrue(decoded["_id"].generation_time)
 
 
 if __name__ == "__main__":
