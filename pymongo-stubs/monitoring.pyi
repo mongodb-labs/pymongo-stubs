@@ -46,7 +46,14 @@ _Document = Mapping[str, Any]
 _Address = Tuple[str, Optional[int]]
 
 class _CommandEvent:
-    def __init__(self, command_name: str, request_id: int, connection_id: _Address, operation_id: Optional[int]) -> None: ...
+    def __init__(
+        self,
+        command_name: str,
+        request_id: int,
+        connection_id: _Address,
+        operation_id: Optional[int],
+        service_id: Optional[ObjectId] = ...,
+    ) -> None: ...
     @property
     def command_name(self) -> str: ...
     @property
@@ -57,7 +64,15 @@ class _CommandEvent:
     def operation_id(self) -> Optional[int]: ...
 
 class CommandStartedEvent(_CommandEvent):
-    def __init__(self, command: _Document, database_name: str, *args: Any) -> None: ...
+    def __init__(
+        self,
+        command: _Document,
+        database_name: str,
+        request_id: int,
+        connection_id: _Address,
+        operation_id: Optional[int],
+        service_id: Optional[ObjectId] = ...,
+    ) -> None: ...
     @property
     def command(self) -> _Document: ...
     @property
@@ -72,6 +87,7 @@ class CommandSucceededEvent(_CommandEvent):
         request_id: int,
         connection_id: _Address,
         operation_id: Optional[int],
+        service_id: Optional[ObjectId] = ...,
     ) -> None: ...
     @property
     def duration_micros(self) -> int: ...
@@ -79,7 +95,16 @@ class CommandSucceededEvent(_CommandEvent):
     def reply(self) -> _Document: ...
 
 class CommandFailedEvent(_CommandEvent):
-    def __init__(self, duration: datetime.timedelta, failure: _Document, *args: Any) -> None: ...
+    def __init__(
+        self,
+        duration: datetime.timedelta,
+        failure: _Document,
+        command_name: str,
+        request_id: int,
+        connection_id: _Address,
+        operation_id: Optional[int],
+        service_id: Optional[ObjectId] = ...,
+    ) -> None: ...
     @property
     def duration_micros(self) -> int: ...
     @property
@@ -95,7 +120,9 @@ class PoolCreatedEvent(_PoolEvent):
     @property
     def options(self) -> Dict[str, Any]: ...
 
-class PoolClearedEvent(_PoolEvent): ...
+class PoolClearedEvent(_PoolEvent):
+    def __init__(self, address: _Address, service_id: Optional[ObjectId] = ...) -> None: ...
+
 class PoolClosedEvent(_PoolEvent): ...
 
 class ConnectionClosedReason:

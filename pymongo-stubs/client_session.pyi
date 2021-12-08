@@ -1,4 +1,4 @@
-from typing import Any, Callable, ContextManager, Mapping, Optional, TypeVar
+from typing import Any, Callable, ContextManager, Mapping, Optional, TypeVar, Union
 
 from bson.timestamp import Timestamp
 from pymongo.mongo_client import MongoClient
@@ -8,7 +8,10 @@ from pymongo.write_concern import WriteConcern
 
 class SessionOptions:
     def __init__(
-        self, causal_consistency: bool = ..., default_transaction_options: Optional[TransactionOptions] = ...
+        self,
+        causal_consistency: Optional[bool] = ...,
+        default_transaction_options: Optional[TransactionOptions] = ...,
+        snapshot: Optional[bool] = ...,
     ) -> None: ...
     @property
     def causal_consistency(self) -> bool: ...

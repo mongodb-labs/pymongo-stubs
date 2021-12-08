@@ -21,7 +21,7 @@ from typing import Iterable
 
 from mypy import api
 
-TEST_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'fail')
+TEST_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "fail")
 
 
 def get_tests() -> Iterable[str]:
@@ -31,7 +31,6 @@ def get_tests() -> Iterable[str]:
 
 
 class TestMypyFails(unittest.TestCase):
-
     def ensure_mypy_fails(self, filename: str) -> None:
         stdout, stderr, exit_status = api.run([filename])
         self.assertTrue(exit_status, msg=stdout)
