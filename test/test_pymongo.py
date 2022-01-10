@@ -15,12 +15,13 @@
 """Test type checking of pymongo."""
 
 import unittest
+from typing import Any, Dict, Iterable, List
 
-from typing import Iterable, List, Dict, Any
-
-from pymongo.mongo_client import MongoClient
+from bson.son import SON
 from pymongo.collection import Collection
 from pymongo.errors import ServerSelectionTimeoutError
+from pymongo.mongo_client import MongoClient
+from pymongo.operations import InsertOne
 
 
 class TestPymongo(unittest.TestCase):
@@ -60,6 +61,35 @@ class TestPymongo(unittest.TestCase):
         cursor = self.coll.find()
         docs = to_list(cursor)
         self.assertTrue(docs)
+
+    def test_bulk_write(self) -> None:
+        self.coll.insert_one({})
+        requests = [InsertOne({})]
+        result = self.coll.bulk_write(requests)
+        self.assertTrue(result.acknowledged)
+
+    def test_aggregate_pipeline(self) -> None:
+        coll3 = self.client.test.test3
+        coll3.insert_many(
+            [
+                {"x": 1, "tags": ["dog", "cat"]},
+                {"x": 2, "tags": ["cat"]},
+                {"x": 2, "tags": ["mouse", "cat", "dog"]},
+                {"x": 3, "tags": []},
+            ]
+        )
+
+        class mydict(Dict[str, Any]):
+            pass
+
+        result = coll3.aggregate(
+            [
+                mydict({"$unwind": "$tags"}),
+                {"$group": {"_id": "$tags", "count": {"$sum": 1}}},
+                {"$sort": SON([("count", -1), ("_id", -1)])},
+            ]
+        )
+        self.assertTrue(len(list(result)))
 
 
 if __name__ == "__main__":
