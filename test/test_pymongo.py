@@ -21,6 +21,7 @@ from typing import Iterable, List, Dict, Any
 from pymongo.mongo_client import MongoClient
 from pymongo.collection import Collection
 from pymongo.errors import ServerSelectionTimeoutError
+from pymongo.operations import InsertOne
 
 
 class TestPymongo(unittest.TestCase):
@@ -60,6 +61,13 @@ class TestPymongo(unittest.TestCase):
         cursor = self.coll.find()
         docs = to_list(cursor)
         self.assertTrue(docs)
+
+
+    def test_bulk_write(self) -> None:
+        self.coll.insert_one({})
+        requests = [InsertOne({})]
+        result = self.coll.bulk_write(requests)
+        self.assertTrue(result.acknowledged)
 
 
 if __name__ == "__main__":

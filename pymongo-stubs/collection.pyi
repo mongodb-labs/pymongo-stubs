@@ -1,4 +1,4 @@
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, TypeVar, Union
 
 from bson.code import Code
 from bson.codec_options import CodecOptions
@@ -16,7 +16,7 @@ from pymongo.read_preferences import _ServerMode
 from pymongo.results import BulkWriteResult, DeleteResult, InsertManyResult, InsertOneResult, UpdateResult
 from pymongo.write_concern import WriteConcern
 
-WriteOp = Union[InsertOne, DeleteOne, DeleteMany, ReplaceOne, UpdateOne, UpdateMany]
+WriteOp = TypeVar("WriteOp", bound=Union[InsertOne, DeleteOne, DeleteMany, ReplaceOne, UpdateOne, UpdateMany], covariant=True)
 _Collation = Union[Mapping[str, Any], Collation]
 # Hint supports index name, "myIndex", or list of index pairs: [('x', 1), ('y', -1)]
 _IndexList = Sequence[Tuple[str, Union[int, str, Mapping[str, Any]]]]
