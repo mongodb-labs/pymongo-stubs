@@ -17,7 +17,7 @@ with open("README.rst", "r") as f:
 
 setup(
     name="pymongo-stubs",
-    version="0.1.1.dev0",
+    version="0.2.0",
     description="Experimental stub files for PyMongo",
     long_description=LONG_DESCRIPTION,
     packages=["pymongo-stubs", "bson-stubs", "gridfs-stubs"],
