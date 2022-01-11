@@ -20,7 +20,7 @@ setup(
     version="0.3.0.dev0",
     description="Experimental stub files for PyMongo",
     long_description=LONG_DESCRIPTION,
-    long_description_content_type='text/x-rst',
+    long_description_content_type="text/x-rst",
     packages=["pymongo-stubs", "bson-stubs", "gridfs-stubs"],
     package_data={
         "pymongo-stubs": find_stubs("pymongo-stubs"),
